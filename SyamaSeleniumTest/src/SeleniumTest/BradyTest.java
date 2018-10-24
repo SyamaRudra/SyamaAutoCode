@@ -1,16 +1,34 @@
 package SeleniumTest;
 
-	import java.util.concurrent.TimeUnit;
-	import org.openqa.selenium.By;
-	import org.openqa.selenium.WebDriver;
-	import org.openqa.selenium.chrome.ChromeDriver;
-	import org.openqa.selenium.support.ui.Select;
-	import org.testng.annotations.Test;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import atu.testrecorder.ATUTestRecorder;
 
 	public class BradyTest {
 	
 	WebDriver driver;
+	ATUTestRecorder recorder;
 	
+	@BeforeTest
+	public void setup() throws Exception {
+		DateFormat dateFormat = new SimpleDateFormat("yy-mm-dd HH-mm-ss");
+		Date date = new Date();
+		
+		recorder = new ATUTestRecorder("F:\\JavaSelenium\\TestExecutionVideos","Rudra_BradyTestVideo-"+dateFormat.format(date),false);
+		
+		recorder.start();
+	}
+		
 	@Test (priority=1)
 	public void setUp() {
 		
@@ -111,14 +129,12 @@ package SeleniumTest;
 	@Test (priority=13)
 	public void navigateToShoppingcart() {
 		driver.findElement(By.linkText("Proceed to checkout")).click();
-		
 	}
 		
 	@Test (priority=14)
 	public void totalNoOfItems() {
 		
 		System.out.println(driver.findElement(By.id("summary_products_quantity")).getText());
-		//System.out.println("Total No. of items are 3");
 	}
 	
 	@Test (priority=15)
@@ -161,11 +177,15 @@ package SeleniumTest;
 		System.out.println("Signing out from the browser");		
 	}
 	
-	@Test (priority=21)
-	public void closeBrowser() {
-		driver.close();
-		
+	@AfterTest
+	public void closeBrowser() throws Exception {
 		System.out.println("--------------------------------------------------");
 		System.out.println("Note: Tested all combinations from 'Sort out' drop down menu. But, the items not displaying as expected except 'Lowest First' option.");
+		System.out.println("--------------------------------------------------");
+		driver.close();
+		
+		recorder.stop();
+		
 	}
+		
 }
