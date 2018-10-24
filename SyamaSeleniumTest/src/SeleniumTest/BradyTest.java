@@ -116,8 +116,6 @@ package SeleniumTest;
 		
 	@Test (priority=14)
 	public void totalNoOfItems() {
-		//System.out.println(driver.findElement(By.xpath("//*[@id=\'layer_cart\']/div[1]/div[2]/h2/span[1]")).getText());
-		//driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		
 		System.out.println(driver.findElement(By.id("summary_products_quantity")).getText());
 		//System.out.println("Total No. of items are 3");
